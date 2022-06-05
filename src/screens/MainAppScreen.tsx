@@ -1,14 +1,16 @@
-import React, { useDebugValue, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { TaskComponent } from '../components/TaskComponent';
 export const MainAppScreen = () => {
+
+
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState(['']);
 
   /**
    * Agrega una nueva tarea a la lista de tareas
    */
-  const handleAddTask = (): void => {
+  const handleAddTask = ()=> {
     Keyboard.dismiss();
     setTaskItems([...taskItems, task]);
     setTask('');
@@ -16,12 +18,20 @@ export const MainAppScreen = () => {
 
   /**
    * Elimina la tarea que corresponda al index pasado por parametro
-   * @param index 
+   * @param index
    */
-  const completeTask = (index: number): void => {
+  const completeTask = (index: number)=> {
     let itemCopy = [...taskItems];
     itemCopy.splice(index, 1);
     setTaskItems(itemCopy);
+  };
+
+  const mapTasks = (value: string, index: number) => {
+    return (
+      <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+        <TaskComponent title={value} />
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -30,13 +40,7 @@ export const MainAppScreen = () => {
         <Text style={styles.sectionTitle}>Tareas del día</Text>
         <View style={styles.items} >
           {
-            taskItems.map((value, index) => {
-              return (
-                <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-                  <TaskComponent title={value} />
-                </TouchableOpacity>
-              );
-            });
+            taskItems.map(mapTasks)
           }
         </View>
 
