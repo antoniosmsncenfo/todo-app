@@ -1,11 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { string } from 'yargs';
 
 interface Props {
     title: string;
 }
 
+/**
+ * Componente para renderizar una tarea.
+ * @param titulo titulo de la tarea
+ * @returns JSX.Element
+ */
 export const TaskComponent = ({ title }: Props) => {
     return (
         <View style={styles.item}>
@@ -17,6 +21,10 @@ export const TaskComponent = ({ title }: Props) => {
         </View>
     );
 };
+
+/**
+ * Sección de estilos del componente
+ */
 const styles = StyleSheet.create({
     item: {
         backgroundColor: '#fff',

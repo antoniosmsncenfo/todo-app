@@ -5,12 +5,19 @@ export const MainAppScreen = () => {
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState(['']);
 
+  /**
+   * Agrega una nueva tarea a la lista de tareas
+   */
   const handleAddTask = (): void => {
     Keyboard.dismiss();
     setTaskItems([...taskItems, task]);
     setTask('');
   };
 
+  /**
+   * Elimina la tarea que corresponda al index pasado por parametro
+   * @param index 
+   */
   const completeTask = (index: number): void => {
     let itemCopy = [...taskItems];
     itemCopy.splice(index, 1);
@@ -26,7 +33,7 @@ export const MainAppScreen = () => {
             taskItems.map((value, index) => {
               return (
                 <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-                  <TaskComponent title="value" />
+                  <TaskComponent title={value} />
                 </TouchableOpacity>
               );
             });
@@ -56,6 +63,10 @@ export const MainAppScreen = () => {
   );
 };
 
+
+/**
+ * Estilos del componente
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
